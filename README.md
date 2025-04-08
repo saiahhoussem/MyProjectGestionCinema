@@ -1,2 +1,2 @@
 # MyProjectGestionCinema
-Projet de type Application WPF (.NET Framework) d'un systéme de gestion des projections et des réservations.
+Application WPF (.NET Framework) dédiée à la gestion des projections et des réservations au sein d’un réseau de cinémas.

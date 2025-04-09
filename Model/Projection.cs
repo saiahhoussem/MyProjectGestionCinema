@@ -97,6 +97,37 @@ namespace MyProjectGestionCinema.Model
             }
         }
 
+        /// <summary>
+        /// Calcule le prix d'un billet d'une projection en fonction du type de la projection.
+        /// </summary>
+        /// <param name="leTypeProjection">Le type de projection</param>
+        /// <returns>Retounrne le prix de la projection.</returns>
+        public decimal PrixProjection( ProjectionType leTypeProjection)
+        {
+            decimal prixProjection = 0;
+
+            switch(leTypeProjection)
+            {
+                case ProjectionType._3D:
+                    prixProjection = PRIX_PLACE_MIN + PRIX_PLACE_MIN * 0.10m ;
+                    break;
+
+                case ProjectionType.IMAX:
+                    prixProjection = PRIX_PLACE_MIN + PRIX_PLACE_MIN * 0.05m;
+                    break;
+
+                case ProjectionType._4DX:
+                    prixProjection = PRIX_PLACE_MIN + PRIX_PLACE_MIN * 0.15m;
+                    break;
+
+                default:
+                    prixProjection = PRIX_PLACE_MIN;
+                    break;
+
+            }
+            return prixProjection;
+        }
+
 
 
     }

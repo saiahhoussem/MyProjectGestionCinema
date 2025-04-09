@@ -218,5 +218,18 @@ namespace MyProjectGestionCinema.Model
             return !(p1 == p2);
         }
 
+        /// <summary>
+        /// Vérifie si l'objet donné est égal à l'objet Projection actuel.
+        /// Retourne vrai si l'objet est une Projection et que les champs 'NomSalle',
+        /// 'DateProjection' et 'TypeProjection' sont identiques à ceux de l'objet actuel.
+        /// </summary>
+        /// <param name="obj">L'objet à comparer avec l'objet Projection actuel.</param>
+        /// <returns>Vrai si l'objet est une Projection et égal à l'objet actuel, sinon faux.</returns>
+        public override bool Equals(object obj)
+        {
+            return obj is Projection uneProjection && this == uneProjection;
+        }
+
+
     }
 }

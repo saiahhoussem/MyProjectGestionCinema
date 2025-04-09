@@ -180,6 +180,14 @@ namespace MyProjectGestionCinema.Model
             m_iNbrReservations -= nbrPlacesDonne;
         }
 
+        /// <summary>
+        /// Redéfinit la méthode ToString pour afficher un résumé de la projection.
+        /// </summary>
+        /// <returns>Chaîne représentant la projection.</returns>
+        public override string ToString()
+        {
+            return $"Projection {m_leTypeProjection} du {m_dteDateProjection.ToShortDateString()} à la salle {m_strNomSalleProjection}";
+        }
 
 
 

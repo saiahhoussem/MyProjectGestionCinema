@@ -230,6 +230,14 @@ namespace MyProjectGestionCinema.Model
             return obj is Projection uneProjection && this == uneProjection;
         }
 
-
+        /// <summary>
+        /// Génère un code de hachage pour l'objet Projection actuel.
+        /// Combine les codes de hachage des champs 'NomSalle', 'DateProjection' et 'TypeProjection'.
+        /// </summary>
+        /// <returns>Un code de hachage pour l'objet Projection actuel.</returns>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(NomSalle, DateProjection, TypeProjection);
+        }
     }
 }

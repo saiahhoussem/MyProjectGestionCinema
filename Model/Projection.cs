@@ -17,7 +17,7 @@ namespace MyProjectGestionCinema.Model
 {
     public class Projection
     {
-        public enum TypeProjection
+        public enum ProjectionType
         {
             Standard,
             _3D,
@@ -29,7 +29,7 @@ namespace MyProjectGestionCinema.Model
 
         private DateTime m_dteDateProjection;
         private string m_strNomSalleProjection;
-        private TypeProjection m_leTypeProjection;
+        private ProjectionType m_leTypeProjection;
         private int m_iNbrPlaces;
         private int m_iNbrReservations;
 
@@ -39,7 +39,7 @@ namespace MyProjectGestionCinema.Model
         /// <param name="leTypeProjection"></param>
         /// <param name="nomSalleProjection"></param>
         /// <param name="dateProjection"></param>
-        public Projection(TypeProjection leTypeProjection, string nomSalleProjection, DateTime dateProjection)
+        public Projection(ProjectionType leTypeProjection, string nomSalleProjection, DateTime dateProjection)
         {
             m_leTypeProjection = leTypeProjection;
             m_strNomSalleProjection = nomSalleProjection;
@@ -50,6 +50,21 @@ namespace MyProjectGestionCinema.Model
 
             // Initialiser les réservations à 0
             m_iNbrReservations = 0;
+        }
+
+        /// <summary>
+        /// Accesseur en lecture et en écriture au type de projection.
+        /// </summary>
+        public ProjectionType TypeProjection
+        {
+            get
+            {
+                return m_leTypeProjection;
+            }
+            set
+            {
+                m_leTypeProjection = value;
+            }
         }
 
 

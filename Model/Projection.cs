@@ -68,7 +68,7 @@ namespace MyProjectGestionCinema.Model
         }
 
         /// <summary>
-        /// Accesseur en lecture et en ecriture pour la date de la projection
+        /// Accesseur en lecture et en ecriture pour la date de la projection.
         /// </summary>
         public DateTime DateProjection
         {
@@ -81,6 +81,23 @@ namespace MyProjectGestionCinema.Model
                 m_dteDateProjection = value;
             }
         }
+
+        /// <summary>
+        /// Accesseur en lecture et en ecriture pour le nom de la salle de projection.
+        /// </summary>
+        public string NomSalle
+        {
+            get
+            {
+                return m_strNomSalleProjection;
+            }
+            set
+            {
+                m_strNomSalleProjection = value;
+            }
+        }
+
+
 
     }
 }

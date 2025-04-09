@@ -11,12 +11,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utilitaires;
 
 namespace MyProjectGestionCinema.Model
 {
     public class Projection
     {
-        private enum TypeProjection
+        public enum TypeProjection
         {
             Standard,
             _3D,
@@ -31,6 +32,26 @@ namespace MyProjectGestionCinema.Model
         private TypeProjection m_leTypeProjection;
         private int m_iNbrPlaces;
         private int m_iNbrReservations;
+
+        /// <summary>
+        /// Constructeur de la classe Projection qui permet d'initialiser les attributs à l'aide des paramètres reçus.
+        /// </summary>
+        /// <param name="leTypeProjection"></param>
+        /// <param name="nomSalleProjection"></param>
+        /// <param name="dateProjection"></param>
+        public Projection(TypeProjection leTypeProjection, string nomSalleProjection, DateTime dateProjection)
+        {
+            m_leTypeProjection = leTypeProjection;
+            m_strNomSalleProjection = nomSalleProjection;
+            m_dteDateProjection = dateProjection;
+
+            // Générer un nombre aléatoire de places entre 10 et 100
+            m_iNbrPlaces = Aleatoire.GenererNombre(91) + 10;
+
+            // Initialiser les réservations à 0
+            m_iNbrReservations = 0;
+        }
+
 
     }
 }

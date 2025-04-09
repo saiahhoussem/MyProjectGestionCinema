@@ -67,6 +67,20 @@ namespace MyProjectGestionCinema.Model
             }
         }
 
+        /// <summary>
+        /// Accesseur en lecture et en ecriture pour la date de la projection
+        /// </summary>
+        public DateTime DateProjection
+        {
+            get
+            {
+                return m_dteDateProjection;
+            }
+            set
+            {
+                m_dteDateProjection = value;
+            }
+        }
 
     }
 }

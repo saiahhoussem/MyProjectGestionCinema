@@ -189,10 +189,22 @@ namespace MyProjectGestionCinema.Model
             return $"Projection {m_leTypeProjection} du {m_dteDateProjection.ToShortDateString()} à la salle {m_strNomSalleProjection}";
         }
 
+        /// <summary>
+        /// Compare deux objets Projection pour l'égalité en utilisant l'opérateur '=='.
+        /// Vérifie si les deux références sont identiques, si l'un des objets est nul,
+        /// puis compare les champs 'NomSalle', 'DateProjection' et 'TypeProjection'.
+        /// </summary>
+        /// <param name="p1">Le premier objet Projection à comparer.</param>
+        /// <param name="p2">Le deuxième objet Projection à comparer.</param>
+        /// <returns>Vrai si les deux objets Projection sont égaux, sinon faux.</returns>
+        public static bool operator ==(Projection p1, Projection p2)
+        {
+            if (ReferenceEquals(p1, p2)) return true;
 
+            if ((object)p1 == null || (object)p2 == null) return false;
 
-
-
+            return p1.NomSalle == p2.NomSalle && p1.DateProjection == p2.DateProjection && p1.TypeProjection == p2.TypeProjection;
+        }
 
     }
 }

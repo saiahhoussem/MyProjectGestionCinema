@@ -128,6 +128,15 @@ namespace MyProjectGestionCinema.Model
             return prixProjection;
         }
 
+        /// <summary>
+        /// Accesseur qui permet de voir le nombre de places non réservées.
+        /// </summary>
+        public int NbrPlacesDisponibles
+        {
+            get { return m_iNbrPlaces - m_iNbrReservations; }
+        }
+
+
 
 
     }

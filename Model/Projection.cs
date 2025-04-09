@@ -136,6 +136,30 @@ namespace MyProjectGestionCinema.Model
             get { return m_iNbrPlaces - m_iNbrReservations; }
         }
 
+        /// <summary>
+        /// Réserve un nombre donné de places. Si aucune valeur n'est fournie, une seule place est réservée.
+        /// </summary>
+        /// <param name="nbrPlacesDonne">Nombre de places à réserver (défaut = 1)</param>
+        /// <exception cref="InvalidOperationException">
+        /// Lancée si le nombre est ≤ 0 ou s'il n'y a pas assez de places disponibles.
+        /// </exception>
+        public void ReserverPlaces(int nbrPlacesDonne = 1)
+        {
+            if (nbrPlacesDonne <= 0)
+            {
+                throw new InvalidOperationException("Nombre de places doit être supérieur à zéro.");
+            }
+
+            if (nbrPlacesDonne > NbrPlacesDisponibles)
+            {
+                throw new InvalidOperationException("Nombre de places insuffisant pour cette réservation.");
+            }
+
+            m_iNbrReservations += nbrPlacesDonne;
+        }
+
+
+
 
 
 

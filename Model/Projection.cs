@@ -158,6 +158,29 @@ namespace MyProjectGestionCinema.Model
             m_iNbrReservations += nbrPlacesDonne;
         }
 
+        /// <summary>
+        /// Libère un nombre donné de places réservées.
+        /// </summary>
+        /// <param name="nbrPlacesDonne">Nombre de places à libérer</param>
+        /// <exception cref="InvalidOperationException">
+        /// Lancée si le nombre est ≤ 0 ou s'il dépasse le nombre de réservations.
+        /// </exception>
+        public void LibererPlaces(int nbrPlacesDonne)
+        {
+            if (nbrPlacesDonne <= 0)
+            {
+                throw new InvalidOperationException("Nombre de places doit être supérieur à zéro.");
+            }
+
+            if (m_iNbrReservations < nbrPlacesDonne)
+            {
+                throw new InvalidOperationException("Nombre de places réservées insuffisant pour cette annulation.");
+            }
+
+            m_iNbrReservations -= nbrPlacesDonne;
+        }
+
+
 
 
 

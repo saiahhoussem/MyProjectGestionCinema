@@ -206,5 +206,17 @@ namespace MyProjectGestionCinema.Model
             return p1.NomSalle == p2.NomSalle && p1.DateProjection == p2.DateProjection && p1.TypeProjection == p2.TypeProjection;
         }
 
+        /// <summary>
+        /// Compare deux objets Projection pour l'inégalité en utilisant l'opérateur '!='.
+        /// Retourne la négation de la comparaison '=='.
+        /// </summary>
+        /// <param name="p1">Le premier objet Projection à comparer.</param>
+        /// <param name="p2">Le deuxième objet Projection à comparer.</param>
+        /// <returns>Vrai si les deux objets Projection ne sont pas égaux, sinon faux.</returns>
+        public static bool operator !=(Projection p1, Projection p2)
+        {
+            return !(p1 == p2);
+        }
+
     }
 }

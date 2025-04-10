@@ -17,19 +17,13 @@ namespace MyProjectGestionCinema.Model
 {
     public class Projection
     {
-        public enum ProjectionType
-        {
-            Standard,
-            _3D,
-            IMAX,
-            _4DX
-        }
+        
 
         private const int PRIX_PLACE_MIN = 10;
 
         private DateTime m_dteDateProjection;
         private string m_strNomSalleProjection;
-        private ProjectionType m_leTypeProjection;
+        private TypeProjection m_leTypeProjection;
         private int m_iNbrPlaces;
         private int m_iNbrReservations;
 
@@ -39,7 +33,7 @@ namespace MyProjectGestionCinema.Model
         /// <param name="leTypeProjection"></param>
         /// <param name="nomSalleProjection"></param>
         /// <param name="dateProjection"></param>
-        public Projection(ProjectionType leTypeProjection, string nomSalleProjection, DateTime dateProjection)
+        public Projection(TypeProjection leTypeProjection, string nomSalleProjection, DateTime dateProjection)
         {
             m_leTypeProjection = leTypeProjection;
             m_strNomSalleProjection = nomSalleProjection;
@@ -55,7 +49,7 @@ namespace MyProjectGestionCinema.Model
         /// <summary>
         /// Accesseur en lecture et en écriture au type de projection.
         /// </summary>
-        public ProjectionType TypeProjection
+        public TypeProjection TypeProjection
         {
             get
             {
@@ -102,21 +96,21 @@ namespace MyProjectGestionCinema.Model
         /// </summary>
         /// <param name="leTypeProjection">Le type de projection</param>
         /// <returns>Retounrne le prix de la projection.</returns>
-        public decimal PrixProjection( ProjectionType leTypeProjection)
+        public decimal PrixProjection( TypeProjection leTypeProjection)
         {
             decimal prixProjection = 0;
 
             switch(leTypeProjection)
             {
-                case ProjectionType._3D:
+                case TypeProjection._3D:
                     prixProjection = PRIX_PLACE_MIN + PRIX_PLACE_MIN * 0.10m ;
                     break;
 
-                case ProjectionType.IMAX:
+                case TypeProjection.IMAX:
                     prixProjection = PRIX_PLACE_MIN + PRIX_PLACE_MIN * 0.05m;
                     break;
 
-                case ProjectionType._4DX:
+                case TypeProjection._4DX:
                     prixProjection = PRIX_PLACE_MIN + PRIX_PLACE_MIN * 0.15m;
                     break;
 

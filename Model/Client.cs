@@ -21,5 +21,25 @@ namespace MyProjectGestionCinema.Model
         private string m_strAdresse;
         private string m_strTelephone;
         private List<TypeProjection> m_lesTypesProjection = new List<TypeProjection>();
+
+        public Client(string strNom, string strAdresse, string strTelephone, List<TypeProjection> lesTypesProjections)
+        {
+            if(strNom.Length < 3)
+            {
+                throw new ArgumentException("Le nom complet du client ne peut contenir moins de trois caractères.");
+            }
+            m_strNom = strNom;
+
+            if(strAdresse == "")
+            {
+                throw new ArgumentException("L'adresse est vide.");
+            }
+            m_strAdresse = strAdresse;
+
+            //à modifier aprés avoir compléter la méthode Telephone
+            m_strTelephone = strTelephone;
+
+            m_lesTypesProjection = lesTypesProjections;
+        }
     }
 }

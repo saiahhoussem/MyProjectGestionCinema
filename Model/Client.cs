@@ -15,7 +15,11 @@ using System.Threading.Tasks;
 
 namespace MyProjectGestionCinema.Model
 {
-    internal class Client
+    public class Client
     {
+        private string m_strNom;
+        private string m_strAdresse;
+        private string m_strTelephone;
+        private List<TypeProjection> m_lesTypesProjection = new List<TypeProjection>();
     }
 }

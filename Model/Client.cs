@@ -65,6 +65,22 @@ namespace MyProjectGestionCinema.Model
             }
         }
 
+        /// <summary>
+        /// /// <summary>
+        /// Accesseur (en lecture et en écriture) permet d'obtenir l'adresse du client.
+        /// </summary>
+        /// </summary>
+        public string Adresse { 
+            get
+            {
+                return m_strAdresse;  
+            }
+            set
+            {
+                m_strAdresse = value;
+            }
+        }
+
 
     }
 }

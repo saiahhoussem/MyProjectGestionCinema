@@ -53,5 +53,18 @@ namespace MyProjectGestionCinema.Model
 
             m_lesTypesProjection = lesTypesProjections;
         }
+
+        /// <summary>
+        /// Accesseur (en lecture seulement) permet d'obtenir le nom du client.
+        /// </summary>
+        public string Nom 
+        {
+            get
+            {
+                return m_strNom;
+            }
+        }
+
+
     }
 }

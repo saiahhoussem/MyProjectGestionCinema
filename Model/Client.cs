@@ -22,6 +22,18 @@ namespace MyProjectGestionCinema.Model
         private string m_strTelephone;
         private List<TypeProjection> m_lesTypesProjection = new List<TypeProjection>();
 
+        /// <summary>
+        ///  Constructeur de la classe Client. Permet d'initialiser un client avec les informations fournies.
+        /// </summary>
+        /// <param name="strNom">Nom du client.</param>
+        /// <param name="strAdresse">Adresse du client.</param>
+        /// <param name="strTelephone">Numéro de téléphone du client.</param>
+        /// <param name="lesTypesProjections">Liste des types de projections que le client préfère</param>
+        /// <exception cref="ArgumentException">
+        /// Est levée si: - le nom contient moins de trois caractères
+        ///               - l'adresse est vide
+        ///               - le numéro de téléphone est invalide
+        /// </exception>
         public Client(string strNom, string strAdresse, string strTelephone, List<TypeProjection> lesTypesProjections)
         {
             if(strNom.Length < 3)
@@ -30,7 +42,7 @@ namespace MyProjectGestionCinema.Model
             }
             m_strNom = strNom;
 
-            if(strAdresse == "")
+            if(string.IsNullOrEmpty(strAdresse))
             {
                 throw new ArgumentException("L'adresse est vide.");
             }

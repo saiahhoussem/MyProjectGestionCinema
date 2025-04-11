@@ -48,8 +48,7 @@ namespace MyProjectGestionCinema.Model
             }
             m_strAdresse = strAdresse;
 
-            //à modifier aprés avoir compléter la méthode Telephone
-            m_strTelephone = strTelephone;
+            Telephone = strTelephone;
 
             m_lesTypesProjection = lesTypesProjections;
         }

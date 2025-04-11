@@ -176,6 +176,16 @@ namespace MyProjectGestionCinema.Model
             return !(c1 == c2);
         }
 
+        /// <summary>
+        /// Redéfinition de la méthode Equals pour comparer un objet avec un client.
+        /// </summary>
+        /// <param name="obj">Objet à comparer</param>
+        /// <returns>Vrai si l'objet est un client égal à celui-ci</returns>
+        public override bool Equals(object obj)
+        {
+            return obj is Client autreClient && this == autreClient;
+        }
+
 
 
     }

@@ -14,7 +14,12 @@ using System.Threading.Tasks;
 
 namespace MyProjectGestionCinema.Model
 {
-    internal class Reservation
+    public class Reservation
     {
+
+        private Client m_leClient;
+        private Projection m_laProjectionAssociee;
+        private int m_iNbrPlaces;
+
     }
 }

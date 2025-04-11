@@ -102,7 +102,7 @@ namespace MyProjectGestionCinema.Model
             {
                 if (value.Length != 10)
                 {
-                    throw new ArgumentException("La longueur du numéro de téléphone doit être exactement 10 chiffres.");
+                    throw new ArgumentException("Longueur du numéro de téléphone est invalide.");
                 }
 
                 string codeRegion = value.Substring(0, 3);

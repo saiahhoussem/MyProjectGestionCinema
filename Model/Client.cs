@@ -132,6 +132,21 @@ namespace MyProjectGestionCinema.Model
         /// </summary>
         public List<TypeProjection> Preferences { get; set; }
 
+        /// <summary>
+        /// Redéfinit la méthode ToString pour retourner une représentation textuelle du client,
+        /// incluant son nom et son numéro de téléphone formaté.
+        /// Format : Nom : (XXX)-XXX-XXXX
+        /// </summary>
+        /// <returns>Une chaîne de caractères représentant le client.</returns>
+        public override string ToString()
+        {
+            return string.Format("{0} : ({1})-{2}-{3}",
+                                 Nom,
+                                 Telephone.Substring(0, 3),
+                                 Telephone.Substring(3, 3),
+                                 Telephone.Substring(6, 4));
+        }
+
 
 
     }

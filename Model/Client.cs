@@ -127,6 +127,11 @@ namespace MyProjectGestionCinema.Model
             }
         }
 
+        /// <summary>
+        /// Accesseur en lecture et en écriture à la liste des types de projections choisis par le client (voir Projection::TypeProjection).
+        /// </summary>
+        public List<TypeProjection> Preferences { get; set; }
+
 
 
     }

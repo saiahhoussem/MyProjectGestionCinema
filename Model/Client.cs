@@ -147,6 +147,24 @@ namespace MyProjectGestionCinema.Model
                                  Telephone.Substring(6, 4));
         }
 
+        /// <summary>
+        /// Surcharge de l'opérateur == pour comparer deux clients.
+        /// Deux clients sont considérés égaux si leurs noms et numéros de téléphone sont identiques.
+        /// </summary>
+        /// <param name="c1">Premier client à comparer</param>
+        /// <param name="c2">Deuxième client à comparer</param>
+        /// <returns>Vrai si les deux clients sont égaux, sinon faux</returns>
+        public static bool operator ==(Client c1, Client c2)
+        {
+            if (ReferenceEquals(c1, c2))
+                return true;
+
+            if ((object)c1 == null || (object)c2 == null)
+                return false;
+
+            return c1.Nom == c2.Nom && c1.Telephone == c2.Telephone;
+        }
+
 
 
     }

@@ -186,6 +186,15 @@ namespace MyProjectGestionCinema.Model
             return obj is Client autreClient && this == autreClient;
         }
 
+        /// <summary>
+        /// Redéfinition de GetHashCode pour assurer la cohérence avec Equals.
+        /// </summary>
+        /// <returns>Le code de hachage basé sur le nom et le téléphone</returns>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Nom, Telephone);
+        }
+
 
 
     }

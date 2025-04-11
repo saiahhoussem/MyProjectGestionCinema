@@ -165,6 +165,17 @@ namespace MyProjectGestionCinema.Model
             return c1.Nom == c2.Nom && c1.Telephone == c2.Telephone;
         }
 
+        /// <summary>
+        /// Surcharge de l'opérateur != pour comparer deux clients.
+        /// </summary>
+        /// <param name="c1">Premier client à comparer</param>
+        /// <param name="c2">Deuxième client à comparer</param>
+        /// <returns>Vrai si les deux clients sont différents, sinon faux</returns>
+        public static bool operator !=(Client c1, Client c2)
+        {
+            return !(c1 == c2);
+        }
+
 
 
     }

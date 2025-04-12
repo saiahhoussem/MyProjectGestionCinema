@@ -117,7 +117,25 @@ namespace MyProjectGestionCinema.Model
             return string.Format("{0} places réservées par {1} pour {2} : {3}$.", NbrPlaces, Client.Nom, Projection, MontantReservation);
         }
 
+        /// <summary>
+        /// Compare deux objets Reservation pour l'égalité en utilisant l'opérateur '=='.
+        /// Vérifie si les deux références sont identiques, si l'un des objets est nul,
+        /// puis compare les champs 'Client', 'Projection' et 'NbrPlaces'.
+        /// </summary>
+        /// <param name="r1">Le premier objet Reservation à comparer.</param>
+        /// <param name="r2">Le deuxième objet Reservation à comparer.</param>
+        /// <returns>Vrai si les deux objets Reservation sont égaux, sinon faux.</returns>
+        public static bool operator ==(Reservation r1, Reservation r2)
+        {
+            // Si les deux objets sont la même référence ou les deux sont nuls
+            if (ReferenceEquals(r1, r2)) return true;
 
+            // Si l'un des objets est nul et l'autre non
+            if ((object)r1 == null || (object)r2 == null) return false;
+
+            // Comparer les champs essentiels pour l'égalité
+            return r1.Client == r2.Client && r1.Projection == r2.Projection;
+        }
 
 
     }

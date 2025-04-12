@@ -211,6 +211,34 @@ namespace MyProjectGestionCinema.Model
             return $"{clientDeLAnnee}: {montantDepense:C}";
         }
 
+        /// <summary>
+        /// Vérifie si le client a effectué une réservation existante.
+        /// </summary>
+        /// <param name="client">Le client à vérifier.</param>
+        /// <returns>Retourne true si le client a une réservation, sinon false.</returns>
+        public bool PossedeUneReservationPour(Client client)
+        {
+            // Vérifie si le client est null.
+            if (client == null)
+            {
+                throw new ArgumentNullException(nameof(client), "Le client ne peut pas être nul.");
+            }
+
+            // Parcours toutes les réservations et vérifie si le client a une réservation existante.
+            foreach (Reservation reservation in m_lesReservations)
+            {
+                // Si une réservation existe pour ce client, retourner true.
+                if (reservation.Client == client)
+                {
+                    return true;
+                }
+            }
+
+            // Si aucune réservation n'a été trouvée pour ce client, retourner false.
+            return false;
+        }
+
+
 
 
 

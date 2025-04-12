@@ -16,10 +16,21 @@ using System.Threading.Tasks;
 
 namespace MyProjectGestionCinema.Model
 {
-    internal class GestionnaireReservations
+    public class GestionnaireReservations
     {
 
-        List<Reservation> m_lesReservations = new List<Reservation>();
+        private List<Reservation> m_lesReservations;
+
+        /// <summary>
+        /// Initialise une nouvelle instance de la classe <see cref="GestionnaireReservations"/> 
+        /// avec une liste vide de réservations.
+        /// </summary>
+        public GestionnaireReservations()
+        {
+            m_lesReservations = new List<Reservation>();
+        }
+
+
 
     }
 }

@@ -65,15 +65,27 @@ namespace MyProjectGestionCinema.Model
         public void AnnulerReservation(Client client, Projection projection)
         {
             Reservation reservationAnnuler = null;
+            bool reservationTrouvee = false;
 
             foreach (Reservation reservation in m_lesReservations)
             {
-                if (reservation.Client == client && reservation.Projection == projection)
+                if (!reservationTrouvee &&
+                    reservation.Client == client &&
+                    reservation.Projection == projection)
                 {
                     reservationAnnuler = reservation;
-                    break;
+                    reservationTrouvee = true;
                 }
             }
+
+            if (!reservationTrouvee)
+            {
+                throw new InvalidOperationException($"Aucune réservation n'a été faite par {client.Nom} pour: {projection}.");
+            }
+
+            projection.LibererPlaces(reservationAnnuler.NbrPlaces);
+            m_lesReservations.Remove(reservationAnnuler);
+
 
             if (reservationAnnuler == null)
             {

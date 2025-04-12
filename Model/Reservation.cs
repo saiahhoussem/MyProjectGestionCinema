@@ -149,6 +149,18 @@ namespace MyProjectGestionCinema.Model
             return !(r1 == r2); // Appel à l'opérateur '==' pour simplifier l'inversion de l'égalité
         }
 
+        /// <summary>
+        /// Vérifie si l'objet donné est égal à l'objet Reservation actuel.
+        /// Retourne vrai si l'objet est une Reservation et que les champs 'Client', 
+        /// 'Projection' et 'NbrPlaces' sont identiques à ceux de l'objet actuel.
+        /// </summary>
+        /// <param name="obj">L'objet à comparer avec l'objet Reservation actuel.</param>
+        /// <returns>Vrai si l'objet est une Reservation et égal à l'objet actuel, sinon faux.</returns>
+        public override bool Equals(object obj)
+        {
+            return obj is Reservation uneReservation && this == uneReservation;
+        }
+
 
     }
 }

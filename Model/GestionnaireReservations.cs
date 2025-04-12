@@ -169,7 +169,7 @@ namespace MyProjectGestionCinema.Model
 
             // Variables pour suivre le client avec le plus grand montant dépensé.
             Client clientDeLAnnee = null;
-            decimal montantTotalMax = 0;
+            decimal montantDepense = 0;
 
             // Parcours de toutes les réservations existantes.
             foreach (Reservation reservation in m_lesReservations)
@@ -187,12 +187,12 @@ namespace MyProjectGestionCinema.Model
                 if (anneeProjection == anneeCourante)
                 {
                     // Si le montant de cette réservation est plus élevé que le montant maximum enregistré, on met à jour.
-                    if (reservation.MontantReservation > montantTotalMax)
+                    if (reservation.MontantReservation > montantDepense)
                     {
-                        montantTotalMax = reservation.MontantReservation;
+                        montantDepense = reservation.MontantReservation;
                         clientDeLAnnee = reservation.Client;
                     }
-                    else if (reservation.MontantReservation == montantTotalMax)
+                    else if (reservation.MontantReservation == montantDepense)
                     {
                         // Si le montant est égal à celui déjà enregistré, on peut comparer les noms ou autres critères si nécessaire.
                         // Pour l'instant, on garde le premier client avec ce montant.
@@ -208,7 +208,7 @@ namespace MyProjectGestionCinema.Model
             }
 
             // Retourne le nom du client et le montant dépensé, formaté comme demandé.
-            return $"{clientDeLAnnee}: {montantTotalMax:C}";
+            return $"{clientDeLAnnee}: {montantDepense:C}";
         }
 
 

@@ -161,6 +161,18 @@ namespace MyProjectGestionCinema.Model
             return obj is Reservation uneReservation && this == uneReservation;
         }
 
+        /// <summary>
+        /// Redéfinit la méthode <see cref="GetHashCode"/> pour générer un code de hachage basé sur les propriétés 
+        /// essentielles de la réservation, à savoir le client, la projection et le nombre de places réservées.
+        /// Cette méthode garantit que deux objets de type <see cref="Reservation"/> ayant les mêmes valeurs 
+        /// pour ces propriétés auront le même code de hachage.
+        /// </summary>
+        /// <returns>Un code de hachage pour l'objet <see cref="Reservation"/> basé sur ses propriétés essentielles.</returns>
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
 
     }
 }

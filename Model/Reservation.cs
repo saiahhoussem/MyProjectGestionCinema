@@ -64,7 +64,19 @@ namespace MyProjectGestionCinema.Model
             }
         }
 
-       
+        /// <summary>
+        /// Obtient la projection associée à cette réservation.
+        /// </summary>
+        public Projection Projection
+        {
+            get
+            {
+                return m_laProjectionAssociee;
+            }
+        }
+
+
+
 
 
 

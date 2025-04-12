@@ -137,6 +137,18 @@ namespace MyProjectGestionCinema.Model
             return r1.Client == r2.Client && r1.Projection == r2.Projection;
         }
 
+        /// <summary>
+        /// Compare deux objets Reservation pour l'inégalité en utilisant l'opérateur '!='.
+        /// Retourne la négation de la comparaison '=='.
+        /// </summary>
+        /// <param name="r1">Le premier objet Reservation à comparer.</param>
+        /// <param name="r2">Le deuxième objet Reservation à comparer.</param>
+        /// <returns>Vrai si les deux objets Reservation ne sont pas égaux, sinon faux.</returns>
+        public static bool operator !=(Reservation r1, Reservation r2)
+        {
+            return !(r1 == r2); // Appel à l'opérateur '==' pour simplifier l'inversion de l'égalité
+        }
+
 
     }
 }

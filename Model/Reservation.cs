@@ -93,6 +93,20 @@ namespace MyProjectGestionCinema.Model
             }
         }
 
+        /// <summary>
+        /// Obtient le montant total de la réservation, calculé en fonction du nombre de places réservées 
+        /// et du prix de la projection associée à la réservation.
+        /// </summary>
+        /// <returns>Le montant total de la réservation.</returns>
+        public decimal MontantReservation
+        {
+            get
+            {
+                return NbrPlaces * m_laProjectionAssociee.PrixProjection(m_laProjectionAssociee.TypeProjection);
+            }
+        }
+
+
 
     }
 }

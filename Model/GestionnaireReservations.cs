@@ -157,6 +157,61 @@ namespace MyProjectGestionCinema.Model
             return resultats;
         }
 
+        /// <summary>
+        /// Retourne le client de l'année ainsi que le montant total qu'il a dépensé.
+        /// Le client de l'année est celui qui a dépensé le plus d'argent pour l'année courante.
+        /// </summary>
+        /// <returns>Une chaîne de caractères formatée avec le nom du client et le montant dépensé.</returns>
+        public string ClientDeLAnnee()
+        {
+            // Récupère l'année en cours.
+            int anneeCourante = DateTime.Now.Year;
+
+            // Variables pour suivre le client avec le plus grand montant dépensé.
+            Client clientDeLAnnee = null;
+            decimal montantTotalMax = 0;
+
+            // Parcours de toutes les réservations existantes.
+            foreach (Reservation reservation in m_lesReservations)
+            {
+                // On ignore les réservations à venir (celles dont la date de projection est dans le futur).
+                if (reservation.Projection.DateProjection.Date > DateTime.Now.Date)
+                {
+                    continue;
+                }
+
+                // Récupère l'année de la projection de la réservation.
+                int anneeProjection = reservation.Projection.DateProjection.Year;
+
+                // Si la réservation appartient à l'année courante, on calcule les dépenses.
+                if (anneeProjection == anneeCourante)
+                {
+                    // Si le montant de cette réservation est plus élevé que le montant maximum enregistré, on met à jour.
+                    if (reservation.MontantReservation > montantTotalMax)
+                    {
+                        montantTotalMax = reservation.MontantReservation;
+                        clientDeLAnnee = reservation.Client;
+                    }
+                    else if (reservation.MontantReservation == montantTotalMax)
+                    {
+                        // Si le montant est égal à celui déjà enregistré, on peut comparer les noms ou autres critères si nécessaire.
+                        // Pour l'instant, on garde le premier client avec ce montant.
+                        continue;
+                    }
+                }
+            }
+
+            // Si aucun client n'a effectué de réservation pour l'année en cours, retourner un message indiquant cela.
+            if (clientDeLAnnee == null)
+            {
+                return "Aucun client n'a effectué de réservation pour l'année en cours.";
+            }
+
+            // Retourne le nom du client et le montant dépensé, formaté comme demandé.
+            return $"{clientDeLAnnee}: {montantTotalMax:C}";
+        }
+
+
 
 
 

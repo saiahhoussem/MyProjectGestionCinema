@@ -156,10 +156,16 @@ namespace MyProjectGestionCinema.Model
         /// </summary>
         /// <param name="obj">L'objet à comparer avec l'objet Reservation actuel.</param>
         /// <returns>Vrai si l'objet est une Reservation et égal à l'objet actuel, sinon faux.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
+            if (obj == null)
+            {
+                return false;
+            }
+
             return obj is Reservation uneReservation && this == uneReservation;
         }
+
 
         /// <summary>
         /// Redéfinit la méthode <see cref="GetHashCode"/> pour générer un code de hachage basé sur les propriétés 

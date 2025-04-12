@@ -48,9 +48,7 @@ namespace MyProjectGestionCinema.Model
             }
             m_laProjectionAssociee = laProjection;
 
-            //à modifier
-            m_iNbrPlaces = nbrPlaces;
-
+            NbrPlaces = nbrPlaces;
         }
 
         /// <summary>

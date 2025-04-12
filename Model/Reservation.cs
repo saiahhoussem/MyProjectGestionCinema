@@ -53,5 +53,20 @@ namespace MyProjectGestionCinema.Model
 
         }
 
+        /// <summary>
+        /// Obtient le client associé à cette réservation.
+        /// </summary>
+        public Client Client
+        {
+            get
+            {
+                return m_leClient;
+            }
+        }
+
+       
+
+
+
     }
 }

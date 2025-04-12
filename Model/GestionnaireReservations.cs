@@ -40,11 +40,6 @@ namespace MyProjectGestionCinema.Model
         /// </exception>
         public void AjouterReservation(Reservation reservation)
         {
-            if (reservation == null)
-            {
-                throw new ArgumentNullException(nameof(reservation), "La réservation ne peut pas être nulle.");
-            }
-
             foreach (Reservation r in m_lesReservations)
             {
                 if (r == reservation)
@@ -52,14 +47,43 @@ namespace MyProjectGestionCinema.Model
                     throw new InvalidOperationException($"La réservation {reservation} existe pour ce client et cette projection.");
                 }
             }
-
-            // Réserver les places dans la projection
+            
             reservation.Projection.ReserverPlaces(reservation.NbrPlaces);
-
-            // Ajouter la réservation à la liste
+            
             m_lesReservations.Add(reservation);
         }
 
+        /// <summary>
+        /// Annule une réservation existante pour un client et une projection donnés.
+        /// Met également à jour le nombre de places réservées dans la projection associée.
+        /// </summary>
+        /// <param name="client">Le client ayant effectué la réservation.</param>
+        /// <param name="projection">La projection réservée.</param>
+        /// <exception cref="InvalidOperationException">
+        /// Lancée si aucune réservation n'est trouvée pour ce client et cette projection.
+        /// </exception>
+        public void AnnulerReservation(Client client, Projection projection)
+        {
+            Reservation reservationAnnuler = null;
+
+            foreach (Reservation reservation in m_lesReservations)
+            {
+                if (reservation.Client == client && reservation.Projection == projection)
+                {
+                    reservationAnnuler = reservation;
+                    break;
+                }
+            }
+
+            if (reservationAnnuler == null)
+            {
+                throw new InvalidOperationException($"Aucune réservation n'a été faite par {client.Nom} pour: {projection}.");
+            }
+
+            projection.LibererPlaces(reservationAnnuler.NbrPlaces);
+            
+            m_lesReservations.Remove(reservationAnnuler);
+        }
 
 
 

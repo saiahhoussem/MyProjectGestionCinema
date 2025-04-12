@@ -18,5 +18,8 @@ namespace MyProjectGestionCinema.Model
 {
     internal class GestionnaireReservations
     {
+
+        List<Reservation> m_lesReservations = new List<Reservation>();
+
     }
 }

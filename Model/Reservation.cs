@@ -106,6 +106,18 @@ namespace MyProjectGestionCinema.Model
             }
         }
 
+        /// <summary>
+        /// Redéfinit la méthode ToString pour fournir une représentation textuelle de la réservation.
+        /// Retourne une chaîne qui indique le nombre de places réservées, le nom du client, 
+        /// la projection associée, et le montant total de la réservation.
+        /// </summary>
+        /// <returns>Une chaîne de caractères représentant la réservation.</returns>
+        public override string ToString()
+        {
+            return string.Format("{0} places réservées par {1} pour {2} : {3}$.", NbrPlaces, Client.Nom, Projection, MontantReservation);
+        }
+
+
 
 
     }

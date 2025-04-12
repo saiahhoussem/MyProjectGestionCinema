@@ -238,12 +238,30 @@ namespace MyProjectGestionCinema.Model
             return false;
         }
 
+        /// <summary>
+        /// Vérifie si la projection est reliée à une réservation.
+        /// </summary>
+        /// <param name="projection">La projection à vérifier.</param>
+        /// <returns>Retourne true si la projection est associée à une réservation, sinon false.</returns>
+        /// <exception cref="ArgumentNullException">Lancée si la projection est nulle.</exception>
+        public bool PossedeUneReservationPour(Projection projection)
+        {
+            if (projection == null)
+            {
+                throw new ArgumentNullException(nameof(projection), "La projection ne peut pas être nulle.");
+            }
 
+            // Parcourt les réservations pour voir si l'une d'elles correspond à la projection donnée
+            foreach (Reservation reservation in m_lesReservations)
+            {
+                if (reservation.Projection == projection)
+                {
+                    return true;
+                }
+            }
 
-
-
-
-
+            return false;
+        }
 
     }
 }

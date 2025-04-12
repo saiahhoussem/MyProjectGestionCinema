@@ -85,6 +85,79 @@ namespace MyProjectGestionCinema.Model
             m_lesReservations.Remove(reservationAnnuler);
         }
 
+        /// <summary>
+        /// Retourne le bilan des réservations pour un mois donné.
+        /// </summary>
+        /// <param name="iNumeroDuMois">Le numéro du mois (1 pour janvier, 12 pour décembre).</param>
+        /// <returns>Une liste d'objets StatistiquesSalle avec le montant total des réservations pour chaque salle.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Si le numéro du mois est inférieur à 1 ou supérieur à 12.
+        /// </exception>
+        public List<StatistiquesSalle> BilanMensuel(int iNumeroDuMois)
+        {
+            // Vérification que le numéro du mois est valide (entre 1 et 12).
+            if (iNumeroDuMois < 1 || iNumeroDuMois > 12)
+            {
+                throw new ArgumentOutOfRangeException(nameof(iNumeroDuMois), "Le mois doit être un entier entre 1 et 12.");
+            }
+
+            // Récupération de l'année en cours.
+            int anneeCourante = DateTime.Now.Year;
+
+            // Liste pour stocker les statistiques des salles pour le mois demandé.
+            List<StatistiquesSalle> resultats = new List<StatistiquesSalle>();
+
+            // Parcours de toutes les réservations existantes.
+            foreach (Reservation reservation in m_lesReservations)
+            {
+                // Récupère la date de projection de la réservation.
+                DateTime date = reservation.Projection.DateProjection;
+
+                // Vérifie si la projection a lieu durant le mois et l'année courante.
+                if (date.Month == iNumeroDuMois && date.Year == anneeCourante)
+                {
+                    // Récupère le nom de la salle et le montant de la réservation pour la projection.
+                    string nomSalle = reservation.Projection.NomSalle;
+                    decimal montant = reservation.MontantReservation;
+
+                    // Variable pour vérifier si la salle a déjà été ajoutée à la liste des résultats.
+                    bool trouve = false;
+
+                    // Recherche si la salle existe déjà dans la liste des résultats.
+                    for (int i = 0; i < resultats.Count; i++)
+                    {
+                        // Si la salle existe déjà dans la liste des résultats, on met à jour le montant.
+                        if (resultats[i].NomSalle == nomSalle)
+                        {
+                            // Récupère l'objet StatistiquesSalle pour cette salle.
+                            StatistiquesSalle stat = resultats[i];
+
+                            // Ajoute le montant de la réservation au total mensuel de cette salle.
+                            stat.MontantMensuel += montant;
+
+                            // Met à jour la liste avec la nouvelle valeur du montant pour cette salle.
+                            resultats[i] = stat;
+
+                            // Marque la salle comme trouvée.
+                            trouve = true;
+                            break;
+                        }
+                    }
+
+                    // Si la salle n'a pas encore été ajoutée à la liste des résultats, on l'ajoute maintenant.
+                    if (!trouve)
+                    {
+                        // Ajoute une nouvelle entrée pour cette salle avec le montant de la réservation.
+                        resultats.Add(new StatistiquesSalle(nomSalle, montant));
+                    }
+                }
+            }
+
+            // Retourne la liste des statistiques de salles pour le mois et l'année donnés.
+            return resultats;
+        }
+
+
 
 
     }

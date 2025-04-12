@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyProjectGestionCinema.Model
 {
-    public struct StatistiquesSalle
+    public class StatistiquesSalle
     {
         public string NomSalle { get; set; }
         public decimal MontantMensuel { get; set; }

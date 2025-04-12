@@ -1,279 +1,192 @@
-﻿//***************************************************************************************
-//  + Nom du fichier: GestionnaireReservations.cs
-//  + Nom de la classe: GestionnaireReservations
-//  + Description du rôle du fichier: Cette classe contient les réservations et permet
-//    de calculer certaines statistiques nécessaires pour la gestion du cinéma.
-//  + Auteur: Houssem Saiah
-//  + Créer le: 2025-04-08
-//***************************************************************************************
-
+﻿/*
+ ***************************************************************************************
+ *Nom du fichier: GestionnaireReservations.cs
+ *Nom de la classe:GestionnaireReservations
+ *Description du rôle du fichier: Ce fichier contient la classe qui gère les réservations et permet de calculer certaines statistiques pour la gestion du cinéma.
+ *Auteur: Ibtissam Boukdir - Houssem Saiah
+ ***************************************************************************************
+ */
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MyProjectGestionCinema.Model;
 
 namespace MyProjectGestionCinema.Model
 {
     public class GestionnaireReservations
     {
-
         private List<Reservation> m_lesReservations;
 
-        /// <summary>
-        /// Initialise une nouvelle instance de la classe <see cref="GestionnaireReservations"/> 
-        /// avec une liste vide de réservations.
-        /// </summary>
         public GestionnaireReservations()
         {
             m_lesReservations = new List<Reservation>();
         }
 
-        /// <summary>
-        /// Ajoute une réservation si elle n'existe pas déjà pour le même client et la même projection.
-        /// Met également à jour le nombre de places réservées dans la projection associée.
-        /// </summary>
-        /// <param name="reservation">La réservation à ajouter.</param>
-        /// <exception cref="InvalidOperationException">
-        /// Lancée si une réservation existe déjà pour ce client et cette projection.
-        /// </exception>
-        public void AjouterReservation(Reservation reservation)
+        public void AjouterReservation(Reservation uneReservation)
         {
-            foreach (Reservation r in m_lesReservations)
+            bool existe = false;
+            int i = 0;
+            while (i < m_lesReservations.Count && !existe)
             {
-                if (r == reservation)
-                {
-                    throw new InvalidOperationException($"La réservation {reservation} existe pour ce client et cette projection.");
-                }
+                existe = (uneReservation == m_lesReservations[i]);
+                i++;
             }
-            
-            reservation.Projection.ReserverPlaces(reservation.NbrPlaces);
-            
-            m_lesReservations.Add(reservation);
+
+            if (existe)
+            {
+                throw new InvalidOperationException("La réservation " + uneReservation + " existe pour ce client et cette projection.");
+            }
+
+            uneReservation.Projection.ReserverPlaces(uneReservation.NbrPlaces);
+            m_lesReservations.Add(uneReservation);
         }
 
-        /// <summary>
-        /// Annule une réservation existante pour un client et une projection donnés.
-        /// Met également à jour le nombre de places réservées dans la projection associée.
-        /// </summary>
-        /// <param name="client">Le client ayant effectué la réservation.</param>
-        /// <param name="projection">La projection réservée.</param>
-        /// <exception cref="InvalidOperationException">
-        /// Lancée si aucune réservation n'est trouvée pour ce client et cette projection.
-        /// </exception>
-        public void AnnulerReservation(Client client, Projection projection)
+        public void AnnulerReservation(Reservation uneReservation)
         {
-            Reservation reservationAnnuler = null;
-            bool reservationTrouvee = false;
+            Reservation reservationTrouvee = null;
+            int i = 0;
 
-            foreach (Reservation reservation in m_lesReservations)
+            while (i < m_lesReservations.Count && reservationTrouvee == null)
             {
-                if (!reservationTrouvee &&
-                    reservation.Client == client &&
-                    reservation.Projection == projection)
+                if (m_lesReservations[i] == uneReservation)
                 {
-                    reservationAnnuler = reservation;
-                    reservationTrouvee = true;
+                    reservationTrouvee = m_lesReservations[i];
                 }
+                i++;
             }
 
-            if (!reservationTrouvee)
+            if (reservationTrouvee == null)
             {
-                throw new InvalidOperationException($"Aucune réservation n'a été faite par {client.Nom} pour: {projection}.");
+                throw new InvalidOperationException("Aucune réservation n'a été faite par " + uneReservation.Client.Nom + " pour :" + uneReservation);
             }
 
-            projection.LibererPlaces(reservationAnnuler.NbrPlaces);
-            m_lesReservations.Remove(reservationAnnuler);
-
-
-            if (reservationAnnuler == null)
-            {
-                throw new InvalidOperationException($"Aucune réservation n'a été faite par {client.Nom} pour: {projection}.");
-            }
-
-            projection.LibererPlaces(reservationAnnuler.NbrPlaces);
-            
-            m_lesReservations.Remove(reservationAnnuler);
+            reservationTrouvee.Projection.LibererPlaces(reservationTrouvee.NbrPlaces);
+            m_lesReservations.Remove(reservationTrouvee);
         }
 
-        /// <summary>
-        /// Retourne le bilan des réservations pour un mois donné.
-        /// </summary>
-        /// <param name="iNumeroDuMois">Le numéro du mois (1 pour janvier, 12 pour décembre).</param>
-        /// <returns>Une liste d'objets StatistiquesSalle avec le montant total des réservations pour chaque salle.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Si le numéro du mois est inférieur à 1 ou supérieur à 12.
-        /// </exception>
+
         public List<StatistiquesSalle> BilanMensuel(int iNumeroDuMois)
         {
-            // Vérification que le numéro du mois est valide (entre 1 et 12).
+            List<StatistiquesSalle> listeStatistiquesSalles = new List<StatistiquesSalle>();
+
             if (iNumeroDuMois < 1 || iNumeroDuMois > 12)
             {
-                throw new ArgumentOutOfRangeException(nameof(iNumeroDuMois), "Le mois doit être un entier entre 1 et 12.");
+                throw new InvalidOperationException("Le mois doit être un entier entre 1 et 12");
             }
 
-            // Récupération de l'année en cours.
-            int anneeCourante = DateTime.Now.Year;
+            int anneeCourant = DateTime.Now.Year;
 
-            // Liste pour stocker les statistiques des salles pour le mois demandé.
-            List<StatistiquesSalle> resultats = new List<StatistiquesSalle>();
-
-            // Parcours de toutes les réservations existantes.
             foreach (Reservation reservation in m_lesReservations)
             {
-                // Récupère la date de projection de la réservation.
-                DateTime date = reservation.Projection.DateProjection;
-
-                // Vérifie si la projection a lieu durant le mois et l'année courante.
-                if (date.Month == iNumeroDuMois && date.Year == anneeCourante)
+                if ((iNumeroDuMois == reservation.Projection.DateProjection.Month) &&
+                    (anneeCourant == reservation.Projection.DateProjection.Year))
                 {
-                    // Récupère le nom de la salle et le montant de la réservation pour la projection.
-                    string nomSalle = reservation.Projection.NomSalle;
-                    decimal montant = reservation.MontantReservation;
-
-                    // Variable pour vérifier si la salle a déjà été ajoutée à la liste des résultats.
-                    bool trouve = false;
-
-                    // Recherche si la salle existe déjà dans la liste des résultats.
-                    for (int i = 0; i < resultats.Count; i++)
+                    bool salleExiste = false;
+                    int i = 0;
+                    while (i < listeStatistiquesSalles.Count && !salleExiste)
                     {
-                        // Si la salle existe déjà dans la liste des résultats, on met à jour le montant.
-                        if (resultats[i].NomSalle == nomSalle)
+                        if (listeStatistiquesSalles[i].NomSalle== reservation.Projection.NomSalle)
                         {
-                            // Récupère l'objet StatistiquesSalle pour cette salle.
-                            StatistiquesSalle stat = resultats[i];
-
-                            // Ajoute le montant de la réservation au total mensuel de cette salle.
-                            stat.MontantMensuel += montant;
-
-                            // Met à jour la liste avec la nouvelle valeur du montant pour cette salle.
-                            resultats[i] = stat;
-
-                            // Marque la salle comme trouvée.
-                            trouve = true;
-                            break;
+                            listeStatistiquesSalles[i].MontantMensuel += reservation.MontantReservation;
+                            salleExiste = true;
                         }
+                        i++;
                     }
 
-                    // Si la salle n'a pas encore été ajoutée à la liste des résultats, on l'ajoute maintenant.
-                    if (!trouve)
+                    if (!salleExiste)
                     {
-                        // Ajoute une nouvelle entrée pour cette salle avec le montant de la réservation.
-                        resultats.Add(new StatistiquesSalle(nomSalle, montant));
+                        StatistiquesSalle uneSalle = new StatistiquesSalle(reservation.Projection.NomSalle, reservation.MontantReservation);
+                        listeStatistiquesSalles.Add(uneSalle);
                     }
+
                 }
             }
 
-            // Retourne la liste des statistiques de salles pour le mois et l'année donnés.
-            return resultats;
+            return listeStatistiquesSalles;
         }
 
-        /// <summary>
-        /// Retourne le client de l'année ainsi que le montant total qu'il a dépensé.
-        /// Le client de l'année est celui qui a dépensé le plus d'argent pour l'année courante.
-        /// </summary>
-        /// <returns>Une chaîne de caractères formatée avec le nom du client et le montant dépensé.</returns>
-        public string ClientDeLAnnee()
+        public string ClientDeLannee()
         {
-            // Récupère l'année en cours.
             int anneeCourante = DateTime.Now.Year;
+            Client clientDeLannee = null;
+            decimal montantMax = 0;
 
-            // Variables pour suivre le client avec le plus grand montant dépensé.
-            Client clientDeLAnnee = null;
-            decimal montantDepense = 0;
+            List<Client> clients = new List<Client>();
 
-            // Parcours de toutes les réservations existantes.
             foreach (Reservation reservation in m_lesReservations)
             {
-                // On ignore les réservations à venir (celles dont la date de projection est dans le futur).
-                if (reservation.Projection.DateProjection.Date > DateTime.Now.Date)
+                if (reservation.Projection.DateProjection.Year == anneeCourante &&
+                    reservation.Projection.DateProjection.Date <= DateTime.Now.Date)
                 {
-                    continue;
-                }
-
-                // Récupère l'année de la projection de la réservation.
-                int anneeProjection = reservation.Projection.DateProjection.Year;
-
-                // Si la réservation appartient à l'année courante, on calcule les dépenses.
-                if (anneeProjection == anneeCourante)
-                {
-                    // Si le montant de cette réservation est plus élevé que le montant maximum enregistré, on met à jour.
-                    if (reservation.MontantReservation > montantDepense)
+                    Client client = reservation.Client;
+                    bool clientExiste = false;
+                    int i = 0;
+                    while (i < clients.Count && !clientExiste)
                     {
-                        montantDepense = reservation.MontantReservation;
-                        clientDeLAnnee = reservation.Client;
+                        clientExiste = clients[i] == client;
+                        i++;
                     }
-                    else if (reservation.MontantReservation == montantDepense)
+                    if (!clientExiste)
                     {
-                        // Si le montant est égal à celui déjà enregistré, on peut comparer les noms ou autres critères si nécessaire.
-                        // Pour l'instant, on garde le premier client avec ce montant.
-                        continue;
+                        clients.Add(client);
                     }
                 }
             }
 
-            // Si aucun client n'a effectué de réservation pour l'année en cours, retourner un message indiquant cela.
-            if (clientDeLAnnee == null)
+            for (int i = 0; i < clients.Count; i++)
+            {
+                decimal total = 0;
+                for (int j = 0; j < m_lesReservations.Count; j++)
+                {
+                    if (m_lesReservations[j].Client == clients[i] &&
+                        m_lesReservations[j].Projection.DateProjection.Year == anneeCourante &&
+                        m_lesReservations[j].Projection.DateProjection.Date <= DateTime.Now.Date)
+                    {
+                        total += m_lesReservations[j].MontantReservation;
+                    }
+                }
+
+                if (total > montantMax)
+                {
+                    montantMax = total;
+                    clientDeLannee = clients[i];
+                }
+            }
+
+            if (clientDeLannee == null)
             {
                 return "Aucun client n'a effectué de réservation pour l'année en cours.";
             }
 
-            // Retourne le nom du client et le montant dépensé, formaté comme demandé.
-            return $"{clientDeLAnnee}: {montantDepense:C}";
+            return string.Format("{0}: {1:C}", clientDeLannee, montantMax);
         }
 
-        /// <summary>
-        /// Vérifie si le client a effectué une réservation existante.
-        /// </summary>
-        /// <param name="client">Le client à vérifier.</param>
-        /// <returns>Retourne true si le client a une réservation, sinon false.</returns>
         public bool PossedeUneReservationPour(Client client)
         {
-            // Vérifie si le client est null.
-            if (client == null)
+            bool trouve = false;
+            int index = 0;
+
+            while (!trouve && index < m_lesReservations.Count)
             {
-                throw new ArgumentNullException(nameof(client), "Le client ne peut pas être nul.");
+                trouve = (client == m_lesReservations[index].Client);
+                index++;
             }
 
-            // Parcours toutes les réservations et vérifie si le client a une réservation existante.
-            foreach (Reservation reservation in m_lesReservations)
-            {
-                // Si une réservation existe pour ce client, retourner true.
-                if (reservation.Client == client)
-                {
-                    return true;
-                }
-            }
-
-            // Si aucune réservation n'a été trouvée pour ce client, retourner false.
-            return false;
+            return trouve;
         }
 
-        /// <summary>
-        /// Vérifie si la projection est reliée à une réservation.
-        /// </summary>
-        /// <param name="projection">La projection à vérifier.</param>
-        /// <returns>Retourne true si la projection est associée à une réservation, sinon false.</returns>
-        /// <exception cref="ArgumentNullException">Lancée si la projection est nulle.</exception>
         public bool PossedeUneReservationPour(Projection projection)
         {
-            if (projection == null)
+            bool trouve = false;
+            int index = 0;
+
+            while (!trouve && index < m_lesReservations.Count)
             {
-                throw new ArgumentNullException(nameof(projection), "La projection ne peut pas être nulle.");
+                trouve = (projection == m_lesReservations[index].Projection);
+                index++;
             }
 
-            // Parcourt les réservations pour voir si l'une d'elles correspond à la projection donnée
-            foreach (Reservation reservation in m_lesReservations)
-            {
-                if (reservation.Projection == projection)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return trouve;
         }
-
     }
 }

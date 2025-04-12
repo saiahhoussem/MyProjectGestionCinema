@@ -75,9 +75,25 @@ namespace MyProjectGestionCinema.Model
             }
         }
 
-
-
-
+        /// <summary>
+        /// Obtient ou définit le nombre de places réservées.
+        /// La valeur doit être comprise entre 1 et 10 inclus.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Levée si la valeur est inférieure à 1 ou supérieure à 10.
+        /// </exception>
+        public int NbrPlaces
+        {
+            get { return m_iNbrPlaces; }
+            set
+            {
+                if (value < 1 || value > 10)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), "Le nombre de places réservées doit être compris entre 1 et 10.");
+                }
+                m_iNbrPlaces = value;
+            }
+        }
 
 
     }

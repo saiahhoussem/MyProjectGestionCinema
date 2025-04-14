@@ -175,8 +175,9 @@ namespace MyProjectGestionCinema.Model
         /// <returns>Chaîne représentant la projection.</returns>
         public override string ToString()
         {
-            return $"Projection {m_leTypeProjection} du {m_dteDateProjection.ToShortDateString()} à la salle {m_strNomSalleProjection}";
+            return $"Projection {m_leTypeProjection} du {m_dteDateProjection.ToString("dd-MM-yyyy")} à la salle {m_strNomSalleProjection}";
         }
+
 
         /// <summary>
         /// Compare deux objets Projection pour l'égalité en utilisant l'opérateur '=='.
@@ -192,7 +193,7 @@ namespace MyProjectGestionCinema.Model
 
             if ((object)p1 == null || (object)p2 == null) return false;
 
-            return p1.NomSalle == p2.NomSalle && p1.DateProjection == p2.DateProjection && p1.TypeProjection == p2.TypeProjection;
+            return p1.NomSalle == p2.NomSalle && p1.DateProjection.Date == p2.DateProjection.Date && p1.TypeProjection == p2.TypeProjection;
         }
 
         /// <summary>

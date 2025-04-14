@@ -114,7 +114,7 @@ namespace MyProjectGestionCinema.Model
         /// <returns>Une chaîne de caractères représentant la réservation.</returns>
         public override string ToString()
         {
-            return string.Format("{0} places réservées par {1} pour {2} : {3}$.", NbrPlaces, Client.Nom, Projection, MontantReservation);
+            return string.Format("{0} places réservées par {1} pour {2}: {3}$", NbrPlaces, Client.Nom, Projection, MontantReservation);
         }
 
         /// <summary>

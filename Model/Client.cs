@@ -38,13 +38,13 @@ namespace MyProjectGestionCinema.Model
         {
             if (strNom.Length < 3)
             {
-                throw new ArgumentException("Le nom complet du client ne peut contenir moins de trois caractères.");
+                throw new ArgumentException("Le nom complet du client ne peut contenir moins de trois caractères");
             }
             m_strNom = strNom;
 
             if (string.IsNullOrEmpty(strAdresse))
             {
-                throw new ArgumentException("L'adresse est vide.");
+                throw new ArgumentException("L'adresse est vide");
             }
             m_strAdresse = strAdresse;
 
@@ -102,14 +102,14 @@ namespace MyProjectGestionCinema.Model
             {
                 if (value.Length != 10)
                 {
-                    throw new ArgumentException("Longueur du numéro de téléphone est invalide.");
+                    throw new ArgumentException("La longueur du numéro de téléphone est invalide.");
                 }
 
                 string codeRegion = value.Substring(0, 3);
 
                 if (codeRegion != "418" && codeRegion != "581")
                 {
-                    throw new ArgumentException("Le numéro de téléphone doit être dans la région de Québec (418 ou 581).");
+                    throw new ArgumentException("Le numéro de téléphone doit être à Québec.");
                 }
 
                 string numeroTelephone = value.Substring(3, 7);
@@ -118,7 +118,7 @@ namespace MyProjectGestionCinema.Model
                 {
                     if (!char.IsDigit(c))
                     {
-                        throw new ArgumentException("Le numéro de téléphone contient un caractère invalide.");
+                        throw new ArgumentException("Le numéro de téléphone contient au moins un caractère qui n'est pas un chiffre.");
                     }
                 }
 
@@ -139,7 +139,7 @@ namespace MyProjectGestionCinema.Model
         /// <returns>Une chaîne de caractères représentant le client.</returns>
         public override string ToString()
         {
-            return string.Format("{0} : ({1})-{2}-{3}",
+            return string.Format("{0}: ({1})-{2}-{3}",
                                  Nom,
                                  Telephone.Substring(0, 3),
                                  Telephone.Substring(3, 3),

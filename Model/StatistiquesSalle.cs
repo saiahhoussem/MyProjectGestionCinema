@@ -8,19 +8,10 @@ namespace MyProjectGestionCinema.Model
 {
     public class StatistiquesSalle
     {
-        public string NomSalle { get; set; }
-        public decimal MontantMensuel { get; set; }
+        public string strNomSalle { get; set; }
+        public decimal montantReservations { get; set; }
 
-        public StatistiquesSalle(string nomSalle, decimal montantMensuel)
-        {
-            NomSalle = nomSalle;
-            MontantMensuel = montantMensuel;
-        }
 
-        public override string ToString()
-        {
-            return $"{NomSalle} : {MontantMensuel}$";
-        }
     }
-
 }
+

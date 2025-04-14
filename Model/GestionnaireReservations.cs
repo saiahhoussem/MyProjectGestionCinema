@@ -41,14 +41,14 @@ namespace MyProjectGestionCinema.Model
             m_lesReservations.Add(uneReservation);
         }
 
-        public void AnnulerReservation(Reservation uneReservation)
+        public void AnnulerReservation(Client unClient, Projection uneProjection)
         {
             Reservation reservationTrouvee = null;
             int i = 0;
 
             while (i < m_lesReservations.Count && reservationTrouvee == null)
             {
-                if (m_lesReservations[i] == uneReservation)
+                if (m_lesReservations[i].Client == unClient && m_lesReservations[i].Projection == uneProjection)
                 {
                     reservationTrouvee = m_lesReservations[i];
                 }
@@ -57,7 +57,7 @@ namespace MyProjectGestionCinema.Model
 
             if (reservationTrouvee == null)
             {
-                throw new InvalidOperationException("Aucune réservation n'a été faite par " + uneReservation.Client.Nom + " pour :" + uneReservation);
+                throw new InvalidOperationException("Aucune réservation n'a été faite par " + unClient.Nom + " pour : " + uneProjection);
             }
 
             reservationTrouvee.Projection.LibererPlaces(reservationTrouvee.NbrPlaces);
@@ -85,9 +85,9 @@ namespace MyProjectGestionCinema.Model
                     int i = 0;
                     while (i < listeStatistiquesSalles.Count && !salleExiste)
                     {
-                        if (listeStatistiquesSalles[i].NomSalle== reservation.Projection.NomSalle)
+                        if (listeStatistiquesSalles[i].strNomSalle== reservation.Projection.NomSalle)
                         {
-                            listeStatistiquesSalles[i].MontantMensuel += reservation.MontantReservation;
+                            listeStatistiquesSalles[i].montantReservations += reservation.MontantReservation;
                             salleExiste = true;
                         }
                         i++;
@@ -95,8 +95,8 @@ namespace MyProjectGestionCinema.Model
 
                     if (!salleExiste)
                     {
-                        StatistiquesSalle uneSalle = new StatistiquesSalle(reservation.Projection.NomSalle, reservation.MontantReservation);
-                        listeStatistiquesSalles.Add(uneSalle);
+                        StatistiquesSalle uneSalle;
+                        
                     }
 
                 }
@@ -105,7 +105,7 @@ namespace MyProjectGestionCinema.Model
             return listeStatistiquesSalles;
         }
 
-        public string ClientDeLannee()
+        public string ClientDeLAnnee()
         {
             int anneeCourante = DateTime.Now.Year;
             Client clientDeLannee = null;

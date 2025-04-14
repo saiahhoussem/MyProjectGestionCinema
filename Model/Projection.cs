@@ -96,30 +96,25 @@ namespace MyProjectGestionCinema.Model
         /// </summary>
         /// <param name="leTypeProjection">Le type de projection</param>
         /// <returns>Retounrne le prix de la projection.</returns>
-        public decimal PrixProjection( TypeProjection leTypeProjection)
+        public decimal PrixProjection
         {
-            decimal prixProjection = 0;
-
-            switch(leTypeProjection)
+            get
             {
-                case TypeProjection._3D:
-                    prixProjection = PRIX_PLACE_MIN + PRIX_PLACE_MIN * 0.10m ;
-                    break;
+                switch (TypeProjection)
+                {
+                    case TypeProjection._3D:
+                        return PRIX_PLACE_MIN * 1.1m;
 
-                case TypeProjection.IMAX:
-                    prixProjection = PRIX_PLACE_MIN + PRIX_PLACE_MIN * 0.05m;
-                    break;
+                    case TypeProjection.IMAX:
+                        return PRIX_PLACE_MIN * 1.05m;
 
-                case TypeProjection._4DX:
-                    prixProjection = PRIX_PLACE_MIN + PRIX_PLACE_MIN * 0.15m;
-                    break;
+                    case TypeProjection._4DX:
+                        return PRIX_PLACE_MIN * 1.15m;
 
-                default:
-                    prixProjection = PRIX_PLACE_MIN;
-                    break;
-
+                    default:
+                        return PRIX_PLACE_MIN;
+                }
             }
-            return prixProjection;
         }
 
         /// <summary>

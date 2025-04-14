@@ -102,7 +102,7 @@ namespace MyProjectGestionCinema.Model
         {
             get
             {
-                return NbrPlaces * m_laProjectionAssociee.PrixProjection(m_laProjectionAssociee.TypeProjection);
+                return NbrPlaces * m_laProjectionAssociee.PrixProjection;
             }
         }
 
